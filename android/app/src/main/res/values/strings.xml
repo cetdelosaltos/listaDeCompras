@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">lista-de-compras</string>
+    <string name="title_activity_main">lista-de-compras</string>
+    <string name="package_name">compras.ceta.work</string>
+    <string name="custom_url_scheme">compras.ceta.work</string>
+</resources>

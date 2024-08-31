@@ -1,0 +1,74 @@
+<div class="row">
+    <div class="col">
+        <h1 class="text-primary"> Nueva Lista </h1>
+    </div>
+    <div class="col text-end">
+        <button class="btn btn-outline-light btn-sm">Ver Listas Viejas</button>
+    </div>
+</div>
+<div class="row pb-3">
+    <div class="col-auto">
+        Fecha: <span class="fw-bold text-primary"> {{ fecha | date:'dd-MM-yyyy'}}</span>
+    </div>
+    <div class="col text-end">
+        @if (lugarSeleccionado().lugar) {
+        Lugar: <span class="fw-bold text-primary"> {{ lugarSeleccionado().lugar }}</span>
+        }
+    </div>
+</div>
+<div class="row mb-3">
+    <div class="col">
+        <div class="input-group">
+            <label class="input-group-text bg-primary" style="--bs-bg-opacity: .2;" for="buscar_lugar">Buscar:</label>
+            <input id="productoBuscador" type="text" [(ngModel)]="lugarcito" class="form-control"
+                [ngbTypeahead]="buscarLugar" [inputFormatter]="formatoLug" [resultFormatter]="formatoLug"
+                [editable]="true">
+            <button class="btn btn-primary" (click)="seleccionaLugar(lugarcito)">Seleccionar Lugar</button>
+        </div>
+    </div>
+</div>
+<div class="row pb-3">
+    <div class="col text-end ">
+        TOTAL:<span class="fs-3 text-primary"> {{ totalvan | currency}}</span>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+
+        @for (item of lalista(); track $index) {
+        @if(item?.cantidad !== 0 || item?.precio !== 0){
+        {{$index}}
+        {{ item | json }}
+        }}
+    </div>
+</div>
+
+<div class="row align-content-center align-items-center">
+    <div class="col">
+        <div class="form-floating">
+            <input id="cantidad" [(ngModel)]="cantidad" type="number" class="form-control" (input)="calcularTotal()">
+            <label for="cantidad"> Cantidad</label>
+        </div>
+    </div>
+    <div class="col">
+        <div class="form-floating">
+            <input id="precioUnitario" currencyMask [(ngModel)]="metiendo" type="tel" class="form-control"
+                (input)="calcularTotal()" #precioUnitario>
+            <label for="precioUnitario"> Precio</label>
+        </div>
+    </div>
+    <div class="col-auto">
+        <a class="text-primary text-secondary-hover fs-1" (click)="meterEnLaLista()">
+            <i class="bi bi-cart-plus"></i>
+        </a>
+    </div>
+</div>
+
+
+<div class="row pt-3">
+    <div class="col text-end ">
+        TOTAL:<span class="fs-3 text-primary"> {{ formalista.controls.total.value | currency}}</span>
+    </div>
+</div>
