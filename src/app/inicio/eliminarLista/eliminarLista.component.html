@@ -1,0 +1,32 @@
+<div class="offcanvas-header">
+    <h4 class="offcanvas-title">Borrar Permanentemente</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="abridor.dismiss()"></button>
+</div>
+<div class="offcanvas-body">
+    <div class="row align-items-end align-co">
+        <div class="col">
+            <div class="list-group">
+                <div class="list-group-item">
+                    <div class="row align-items-end">
+                        <div class="col">
+                            <div class="col-12">
+                                Fecha: <span class="fw-bold"> {{ paborrar.fecha | date:'dd/MM/yyyy' }}
+                                </span>
+                            </div>
+                            <div class="col-12">
+                                Lugar: <span class="fw-bold"> {{ paborrar.lugar.lugar }} </span>
+                            </div>
+                            <div class="col-12">
+                                Total: <strong> {{ paborrar.total | currency }}</strong>
+                            </div>
+                        </div>
+                        <div class="col-auto p-1 text-end">
+                            <button type="button" class="btn btn-outline-danger"
+                                (click)="eliminarDefinitivamente(paborrar)">Borrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -3,7 +3,7 @@
         <h1 class="text-primary"> Nueva Lista </h1>
     </div>
     <div class="col text-end">
-        <button class="btn btn-outline-light btn-sm">Ver Listas Viejas</button>
+        <button class="btn btn-outline-light btn-sm" [routerLink]="['/listas']">Ver Listas Viejas</button>
     </div>
 </div>
 <div class="row pb-3">
@@ -27,21 +27,37 @@
         </div>
     </div>
 </div>
-<div class="row pb-3">
+<div class="row ">
+
     <div class="col text-end ">
-        TOTAL:<span class="fs-3 text-primary"> {{ totalvan | currency}}</span>
+        TOTAL:<span class="fs-3 text-primary"> {{ grantotal | currency}}</span>
 
     </div>
 </div>
 
-<div class="row">
+<div class="row my-3">
     <div class="col">
-
-        @for (item of lalista(); track $index) {
-        @if(item?.cantidad !== 0 || item?.precio !== 0){
-        {{$index}}
-        {{ item | json }}
-        }}
+        <div class="list-group">
+            @for (item of lalista(); track $index) {
+            @if(item?.cantidad !== 0 || item?.precio !== 0){
+            <div class="list-group-item">
+                <div class="row">
+                    <div class="col">
+                        {{ item.cantidad }} x
+                        {{ item.precio | currency }}
+                    </div>
+                    <div class="col-auto text-end">
+                        {{item.subtotal | currency}}
+                    </div>
+                    <div class="col-auto">
+                        <a class=" text-danger" (click)="empezarABorrar(eliminarItem, item, $index)">
+                            <i class="bi bi-cart-dash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            }}
+        </div>
     </div>
 </div>
 
@@ -54,8 +70,8 @@
     </div>
     <div class="col">
         <div class="form-floating">
-            <input id="precioUnitario" currencyMask [(ngModel)]="metiendo" type="tel" class="form-control"
-                (input)="calcularTotal()" #precioUnitario>
+            <input id="precioUnitario" [(ngModel)]="metiendo" type="tel" class="form-control" (input)="calcularTotal()"
+                #precioUnitario [inputMask]="currencyInputMask">
             <label for="precioUnitario"> Precio</label>
         </div>
     </div>
@@ -68,7 +84,42 @@
 
 
 <div class="row pt-3">
+    <div class="col">
+        <button class="btn btn-outline-light btn-sm"
+            [disabled]="(lalista().length == 0 || lugarSeleccionado().id == undefined || metiendo !== 0)?true:false"
+            (click)="guardarLista()">Guardar Lista</button>
+    </div>
     <div class="col text-end ">
-        TOTAL:<span class="fs-3 text-primary"> {{ formalista.controls.total.value | currency}}</span>
+        TOTAL:<span class="fs-3 text-primary"> {{ totalvan | currency}}</span>
     </div>
 </div>
+
+<ng-template #eliminarItem let-offcanvas>
+    <div class="offcanvas-header">
+        <h4 class="offcanvas-title">Borrar Permanentemente</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="abridor.dismiss()"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="row align-items-center align-co">
+            <div class="col">
+                <div class="list-group">
+                    <div class="list-group-item">
+                        <div class="row">
+                            <div class="col">
+                                {{ paborrar.cantidad }} x
+                                {{ paborrar.precio | currency }}
+                            </div>
+                            <div class="col-auto text-end">
+                                {{paborrar.subtotal | currency}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-auto text-end">
+                <button type="button" class="btn btn-outline-danger"
+                    (click)="eliminarDefinitivamente(paborrar)">Borrar</button>
+            </div>
+        </div>
+    </div>
+</ng-template>

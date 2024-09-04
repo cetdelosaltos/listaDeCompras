@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Capa_2" data-name="Capa 2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1125 1125">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#Radial_latón);
+        stroke-width: 0px;
+      }
+    </style>
+    <radialGradient id="Radial_latón" data-name="Radial latón" cx="562.5" cy="562.5" fx="562.5" fy="562.5" r="562.5" gradientUnits="userSpaceOnUse">
+      <stop offset=".18" stop-color="#f8f0e4"/>
+      <stop offset=".59" stop-color="#f2d78f"/>
+      <stop offset="1" stop-color="#c58511"/>
+    </radialGradient>
+  </defs>
+  <g id="Capa_1-2" data-name="Capa 1">
+    <rect class="cls-1" width="1125" height="1125"/>
+  </g>
+</svg>

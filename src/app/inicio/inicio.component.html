@@ -1,6 +1,87 @@
-<p>inicio works!</p>,
-{{ listas() | json }} coño en serio
-<!-- <button class="btn btn-primary" (click)="meterLista()">Crear Lista</button> -->
+<div class="input-group pb-3">
+
+    <span class="input-group-text" id="basic-addon1">Lugar:</span>
+
+    <input type="text" class="form-control" placeholder="Filtrar por Lugar" aria-label="Filtrar por Lugar"
+        (input)="filtrarLista($event);">
+
+</div>
+<div class="row">
+    <div class="col-auto">
+        Filtrar Por Fecha
+    </div>
+</div>
+<div class="row pb-3">
+
+    <div class="col-6">
+        <div class="">Desde:</div>
+        <div class="dp-hidden position-absolute">
+            <div class="input-group">
+                <input name="datepicker" class="form-control" ngbDatepicker #datepicker="ngbDatepicker"
+                    [autoClose]="true" (dateSelect)="onDateSelection($event)" [displayMonths]="1" [dayTemplate]="t"
+                    outsideDays="hidden" [startDate]="fromDate!" tabindex="-1" />
+                <ng-template #t let-date let-focused="focused">
+                    <span class="custom-day" [class.focused]="focused" [class.focused]="focused"
+                        [class.range]="isRange(date)" [class.faded]="isHovered(date) || isInside(date)"
+                        (mouseenter)="hoveredDate = date" (mouseleave)="hoveredDate = null">
+                        {{ date.day }}
+                    </span>
+                </ng-template>
+            </div>
+        </div>
+        <div class="input-group">
+            <input #dpFromDate class="form-control" placeholder="yyyy-mm-dd" name="dpFromDate"
+                [value]="formatter.format(fromDate)" (input)="fromDate = validateInput(fromDate, dpFromDate.value)" />
+            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()"
+                type="button"></button>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="">Hasta:</div>
+        <div class="input-group">
+            <input #dpToDate class="form-control" placeholder="yyyy-mm-dd" name="dpToDate"
+                [value]="formatter.format(toDate)" (input)="toDate = validateInput(toDate, dpToDate.value)" />
+            <button class="btn btn-outline-secondary bi bi-calendar3" (click)="datepicker.toggle()"
+                type="button"></button>
+        </div>
+    </div>
+</div>
+<div class="row pb-3">
+    <div class="col text-end">
+        Total del Mes: <span class="text-primary fw-bold">{{elmes | currency}}</span>
+    </div>
+</div>
+
+<ul class="list-group">
+    @if(listas().length == 0){
+    <div class="list-group-item bg-danger-subtle text-danger">
+        No hay listas
+    </div>
+    }@else{
+
+    @for (item of listas(); track $index) {
+    <li class="list-group-item">
+        <div class="row">
+            <div class="col-auto">
+                <a (click)="verLista(item)">
+                    {{ item.fecha | date:'dd/MM/yyyy'}}
+                </a>
+            </div>
+            <div class="col-auto">
+                {{ item.lugar.lugar }}
+            </div>
+            <div class="col text-end">
+                <strong>{{ item.total | currency }}</strong>
+                <a class="ms-3 text-danger" (click)="empezarABorrar(item)">
+                    <i class="bi bi-cart-dash"></i>
+                </a>
+            </div>
+        </div>
+
+    </li>
+    }
+    }
+</ul>
 
 <div class="fab-container position-absolute m-3 bottom-0 end-0">
     <button class="fab shadow btn btn-lg btn-primary position-absolute bottom-0 end-0" placement="left"
@@ -8,3 +89,5 @@
         <i class="bi bi-plus"></i>
     </button>
 </div>
+
+<!-- OffCanvas de eliminación -->

@@ -2,7 +2,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "outDir": "./dist/www",
+    "outDir": "./dist/lista-de-compras",
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "noImplicitOverride": true,
